@@ -1,0 +1,22 @@
+# Magpar configuration file
+-size 1e-9
+-init_mag 3
+-renormtol 1e-3
+-magdist_llg 0.0
+-hfinal -1000
+-metispartition 6
+-ts_dt 1e-4
+-ts_max_time 1e99
+-inp 0001
+-htheta 0.01
+-hphi 0
+-logpid 1
+-tol 1e-2
+-mode 0
+-hextini 1000
+-ts_pvode_rtol 1e-2
+-jfinal -1000
+-hstep -10
+-simName 22_0.81_coreshell
+-ts_logsteps 10
+-condinp_j 1e-3

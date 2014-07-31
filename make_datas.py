@@ -24,6 +24,7 @@ if __name__ == '__main__':
     new_data_file = open(newfile,"w+")
     json.dump(data,new_data_file)
     new_data_file.close()
+    os.system("cd {0} && ../make_allopt.py {1}".format(sys.argv[1]+"-runchildren", simname+sys.argv[1]))
 
   json_data_file.close()
 

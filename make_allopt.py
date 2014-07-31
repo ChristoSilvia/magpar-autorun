@@ -365,7 +365,7 @@ tlo shell;""".format(p["diameter"] * 0.5 * p["c_to_s_ratio"],
     return name+".inp"
   elif "geofile" in mesh_params:
     print "Making mshfile using netgen"
-    command = "netgen "+mesh_params["geofile"]+" -meshfiletype=\"Neutral Format\" -meshfile="+name+".msh"
+    command = "netgen -geofile="+mesh_params["geofile"]+" -meshfiletype=\"Neutral Format\" -meshfile="+name+".msh -batchmode"
     print "Executing command: $"+command
     p = os.system(command)
     print "netgen finished with status:"+str(p)
