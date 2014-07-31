@@ -343,7 +343,7 @@ tlo shell;""".format(p["diameter"] * 0.5 * p["c_to_s_ratio"],
     "cylinder":cylinder,
     "coreshell":coreshell
   }
-  if "inpfile" in mesh_params and mesh_params["inpfile"] is not "":
+  if "inpfile" in mesh_params:
     """Make a new .inp file with the same name as the project"""
     old_inpfile = open(mesh_params["inpfile"])
     new_inpfile = open(name+".inp","w+")
@@ -351,7 +351,7 @@ tlo shell;""".format(p["diameter"] * 0.5 * p["c_to_s_ratio"],
     new_inpfile.close()
     old_inpfile.close()
     return name+".inp"
-  elif "mshfile" in mesh_params and mesh_params ["mshfile"] is not "":
+  elif "mshfile" in mesh_params:
     """ Try to read a partition function from the input parameters,
         and make everything the first material if it fails"""
     if "partition" in mesh_params:
@@ -365,7 +365,7 @@ tlo shell;""".format(p["diameter"] * 0.5 * p["c_to_s_ratio"],
     n_of_materials = make_mesh(partition,name+".inp",points,tetrahedra,triangles,tetrahedra_subdomain, triangles_subdomain)
     print "Number of materials used:"+str(n_of_materials)
     return name+".inp"
-  elif "geofile" in mesh_params and mesh_params["geofile"] is not "":
+  elif "geofile" in mesh_params:
     print "Making mshfile using netgen"
     command = "netgen "+mesh_params["geofile"]+" -meshfiletype=\"Neutral Format\" -meshfile="+name+".msh"
     print "Executing command: $"+command
@@ -429,7 +429,7 @@ def get_simulation_params(filename):
 
 def make_allopt(simulation):
   allopt = "# Magpar configuration file\n"
-  for key,value in simulation.iteritems():
+  for key,value in simulation["parameters"].iteritems():
     allopt += "-"+key+" "+value+"\n"
   return allopt
 
@@ -476,7 +476,7 @@ if __name__ == '__main__':
   run_dirs = make_run_directories(name,sims,linkables)
 
   for run in run_dirs:
-    run_command = "mpirun -n 6 {0}/magpar.exe > {0}/{1}.runlog && {0}/mkinp.sh {0}/{1}.0001.femsh {0}/*.gz && {0}/inp2vtu.pl {1} &".format(run,name)
+    run_command = "mpirun -n 6 {0}/magpar.exe > {0}/{1}.runlog && cd {0} && ./mkinp.sh {1}.0001.femsh *.gz && ./inp2vtu.pl {1} &".format(run,name)
     print run_command
     os.system(run_command)
   
