@@ -5,8 +5,6 @@ import json
 import os,sys,string,time
 import numpy as np
 
-import make_inp
-
 
 def readmesh(filename):
     """This will read the NETGEN neutral mesh 'filename' and return
